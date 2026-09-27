@@ -42,7 +42,7 @@ public class ProductoController {
         p.setNombre(dto.getNombre());
         p.setPrecio(dto.getPrecio());
         p.setStock(dto.getStock());
-        p.setCategoria(dto.getCategoria()); // NUEVO
+        p.setCategoria(dto.getCategoria());
 
         Producto guardado = service.guardar(p);
 
@@ -65,18 +65,17 @@ public class ProductoController {
     public ResponseEntity<?> actualizar(@PathVariable Long id,
                                         @Valid @RequestBody ProductoDTO dto) {
 
-        Producto existente = service.obtener(id);
+        Producto datos = new Producto();
+        datos.setNombre(dto.getNombre());
+        datos.setPrecio(dto.getPrecio());
+        datos.setStock(dto.getStock());
+        datos.setCategoria(dto.getCategoria());
 
-        if (existente == null) {
-            return ResponseEntity.status(404).body("Producto no existe");
+        try {
+            return ResponseEntity.ok(service.actualizar(id, datos));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
         }
-
-        existente.setNombre(dto.getNombre());
-        existente.setPrecio(dto.getPrecio());
-        existente.setStock(dto.getStock());
-        existente.setCategoria(dto.getCategoria()); // NUEVO
-
-        return ResponseEntity.ok(service.guardar(existente));
     }
 
     @DeleteMapping("/{id}")
