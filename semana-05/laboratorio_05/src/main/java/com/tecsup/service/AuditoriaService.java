@@ -11,11 +11,11 @@ public class AuditoriaService {
     @Autowired
     private AuditoriaRepository repo;
 
-    public void registrar(String accion, String metodo, String detalle) {
+    public void registrar(String accion, String metodo, String detalle, String usuario) {
         if (detalle != null && detalle.length() > 255) {
             detalle = detalle.substring(0, 255);
         }
-        AuditoriaLog log = new AuditoriaLog(accion, metodo, detalle);
+        AuditoriaLog log = new AuditoriaLog(accion, metodo, detalle, usuario);
         repo.save(log);
     }
 }

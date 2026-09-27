@@ -14,16 +14,26 @@ public class AuditoriaLog {
     private String metodo;
     private LocalDateTime fecha;
     private String detalle;
+    private String usuario;
+
 
     public AuditoriaLog() {}
 
-    public AuditoriaLog(String accion, String metodo, String detalle) {
+    public AuditoriaLog(String accion, String metodo, String detalle, String usuario) {
         this.accion = accion;
         this.metodo = metodo;
         this.fecha = LocalDateTime.now();
         this.detalle = detalle;
+        this.usuario = usuario;
     }
 
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
 
     public Long getId() {
         return id;
