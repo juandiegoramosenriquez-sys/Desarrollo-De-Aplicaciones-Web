@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: layout('Gestión de Presentaciones', ~{::section})}">
+<body>
+
+<section>
+    <div class="card border-0 shadow-sm p-4 mb-4" style="border-radius: 12px;">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h3 class="fw-bold text-dark mb-1">
+                    <i class="fa-solid fa-box-archive text-info me-2"></i>Gestión de Presentaciones
+                </h3>
+                <p class="text-muted mb-0">Definición de empaques, dosis y formatos comerciales.</p>
+            </div>
+            <a th:href="@{/presentaciones/nuevo}" class="btn btn-primary px-3 shadow-sm">
+                <i class="fa-solid fa-plus me-1"></i> Nueva Presentación
+            </a>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm" style="border-radius: 12px; overflow: hidden;">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-dark">
+                    <tr>
+                        <th class="ps-4">ID</th>
+                        <th>Presentación</th>
+                        <th>Medicamento</th>
+                        <th>Descripción</th>
+                        <th>Estado</th>
+                        <th class="text-end pe-4">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="p : ${presentaciones}">
+                        <td class="ps-4 fw-bold text-muted" th:text="${'#' + p.id}"></td>
+                        <td class="fw-bold text-dark" th:text="${p.nombre}"></td>
+                        <td>
+                            <span class="fw-semibold text-primary"
+                                  th:text="${p.medicamento != null ? p.medicamento.nombreComercial : 'SIN MEDICAMENTO'}"></span>
+                            <small class="text-muted d-block"
+                                   th:if="${p.medicamento != null and p.medicamento.concentracion != null}"
+                                   th:text="${p.medicamento.concentracion}"></small>
+                        </td>
+                        <td th:text="${p.descripcion != null and !p.descripcion.isEmpty() ? p.descripcion : '-'}"></td>
+                        <td>
+                            <span class="badge px-3 py-1 rounded-pill"
+                                  th:classappend="${p.estado} ? 'bg-success-subtle text-success border border-success' : 'bg-danger-subtle text-danger border border-danger'"
+                                  th:text="${p.estado} ? 'Activa' : 'Inactiva'"></span>
+                        </td>
+                        <td class="text-end pe-4 text-nowrap">
+                            <div class="d-inline-flex gap-1">
+                                <a th:href="@{/presentaciones/editar/{id}(id=${p.id})}" class="btn btn-outline-primary btn-sm">
+                                    <i class="fa-solid fa-pen-to-square me-1"></i> Editar
+                                </a>
+                                <a th:href="@{/presentaciones/cambiar-estado/{id}(id=${p.id})}"
+                                   th:classappend="${p.estado} ? 'btn-outline-danger' : 'btn-outline-success'"
+                                   class="btn btn-sm">
+                                    <i class="fa-solid" th:classappend="${p.estado} ? 'fa-ban' : 'fa-check'"></i>
+                                    <span th:text="${p.estado} ? ' Desactivar' : ' Activar'"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(presentaciones)}">
+                        <td colspan="6" class="text-center text-muted py-4">No hay presentaciones registradas.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

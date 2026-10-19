@@ -1,0 +1,65 @@
+{
+  "info": {
+    "name": "Laboratorio 07 - Spring Security (Actividad)",
+    "description": "Pruebas de los endpoints de la actividad del laboratorio 07 con HTTP Basic. Cada request trae un test que verifica el código de estado esperado.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "userPassword", "value": "user2026" },
+    { "key": "managerPassword", "value": "manager2026" },
+    { "key": "adminPassword", "value": "admin2026" }
+  ],
+  "item": [
+    {
+      "name": "01 api/free sin credenciales -> 200",
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test('200 OK', () => pm.response.to.have.status(200));"] } }],
+      "request": { "auth": { "type": "noauth" }, "method": "GET", "url": "{{baseUrl}}/api/free" }
+    },
+    {
+      "name": "02 client/home sin credenciales -> 401",
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test('401 Unauthorized', () => pm.response.to.have.status(401));"] } }],
+      "request": { "auth": { "type": "noauth" }, "method": "GET", "url": "{{baseUrl}}/client/home" }
+    },
+    {
+      "name": "03 client/home como user -> 200",
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test('200 OK', () => pm.response.to.have.status(200));"] } }],
+      "request": { "auth": { "type": "basic", "basic": [{ "key": "username", "value": "user", "type": "string" }, { "key": "password", "value": "{{userPassword}}", "type": "string" }] }, "method": "GET", "url": "{{baseUrl}}/client/home" }
+    },
+    {
+      "name": "04 client/home como user con la clave anterior -> 401",
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test('401 Unauthorized', () => pm.response.to.have.status(401));"] } }],
+      "request": { "auth": { "type": "basic", "basic": [{ "key": "username", "value": "user", "type": "string" }, { "key": "password", "value": "1234", "type": "string" }] }, "method": "GET", "url": "{{baseUrl}}/client/home" }
+    },
+    {
+      "name": "05 manager/reportes como manager -> 200",
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test('200 OK', () => pm.response.to.have.status(200));"] } }],
+      "request": { "auth": { "type": "basic", "basic": [{ "key": "username", "value": "manager", "type": "string" }, { "key": "password", "value": "{{managerPassword}}", "type": "string" }] }, "method": "GET", "url": "{{baseUrl}}/manager/reportes" }
+    },
+    {
+      "name": "06 manager/reportes como user -> 403",
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test('403 Forbidden', () => pm.response.to.have.status(403));"] } }],
+      "request": { "auth": { "type": "basic", "basic": [{ "key": "username", "value": "user", "type": "string" }, { "key": "password", "value": "{{userPassword}}", "type": "string" }] }, "method": "GET", "url": "{{baseUrl}}/manager/reportes" }
+    },
+    {
+      "name": "07 manager/reportes como admin -> 200",
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test('200 OK', () => pm.response.to.have.status(200));"] } }],
+      "request": { "auth": { "type": "basic", "basic": [{ "key": "username", "value": "admin", "type": "string" }, { "key": "password", "value": "{{adminPassword}}", "type": "string" }] }, "method": "GET", "url": "{{baseUrl}}/manager/reportes" }
+    },
+    {
+      "name": "08 management/dashboard como admin -> 200",
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test('200 OK', () => pm.response.to.have.status(200));"] } }],
+      "request": { "auth": { "type": "basic", "basic": [{ "key": "username", "value": "admin", "type": "string" }, { "key": "password", "value": "{{adminPassword}}", "type": "string" }] }, "method": "GET", "url": "{{baseUrl}}/management/dashboard" }
+    },
+    {
+      "name": "09 management/dashboard como manager -> 403",
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test('403 Forbidden', () => pm.response.to.have.status(403));"] } }],
+      "request": { "auth": { "type": "basic", "basic": [{ "key": "username", "value": "manager", "type": "string" }, { "key": "password", "value": "{{managerPassword}}", "type": "string" }] }, "method": "GET", "url": "{{baseUrl}}/management/dashboard" }
+    },
+    {
+      "name": "10 ruta anterior public/hello sin credenciales -> 401",
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test('401 Unauthorized', () => pm.response.to.have.status(401));"] } }],
+      "request": { "auth": { "type": "noauth" }, "method": "GET", "url": "{{baseUrl}}/public/hello" }
+    }
+  ]
+}

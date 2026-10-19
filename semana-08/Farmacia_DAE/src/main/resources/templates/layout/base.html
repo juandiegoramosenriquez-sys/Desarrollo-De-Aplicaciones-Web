@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title, content)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Farmacia Tecsup</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f4f6f9;
+            min-height: 100vh;
+        }
+        .wrapper {
+            display: flex;
+            width: 100%;
+            align-items: stretch;
+        }
+        #sidebar {
+            min-width: 250px;
+            max-width: 250px;
+            background: #1e293b;
+            color: #fff;
+            transition: all 0.3s;
+            min-height: 100vh;
+        }
+        #sidebar .sidebar-header {
+            padding: 20px;
+            background: #0f172a;
+        }
+        #sidebar ul.components {
+            padding: 15px 0;
+        }
+        #sidebar ul li a {
+            padding: 12px 20px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            color: #94a3b8;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        #sidebar ul li a:hover, #sidebar ul li.active > a {
+            color: #fff;
+            background: #334155;
+            border-left: 4px solid #0284c7;
+        }
+        #sidebar ul li a i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+        }
+        #content {
+            width: 100%;
+            padding: 25px;
+            min-height: 100vh;
+        }
+        .navbar-custom {
+            background: #ffffff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-radius: 10px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <nav id="sidebar">
+        <div class="sidebar-header d-flex align-items-center">
+            <i class="fa-solid fa-prescription-bottle-medical text-info fs-3 me-2"></i>
+            <h5 class="m-0 fw-bold text-white">Farmacia Tecsup</h5>
+        </div>
+
+        <ul class="list-unstyled components">
+            <li>
+                <a th:href="@{/dashboard}"><i class="fa-solid fa-chart-line text-info"></i> Dashboard</a>
+            </li>
+            <li class="border-top my-2 border-secondary"></li>
+            <li>
+                <a th:href="@{/medicamentos}"><i class="fa-solid fa-capsules text-warning"></i> Medicamentos</a>
+            </li>
+            <li>
+                <a th:href="@{/lotes}"><i class="fa-solid fa-boxes-stacked text-success"></i> Lotes y Stock</a>
+            </li>
+            <li>
+                <a th:href="@{/categorias}"><i class="fa-solid fa-tags text-primary"></i> Categorías</a>
+            </li>
+            <li>
+                <a th:href="@{/laboratorios}"><i class="fa-solid fa-flask text-danger"></i> Laboratorios</a>
+            </li>
+            <li>
+                <a th:href="@{/presentaciones}"><i class="fa-solid fa-box-archive text-info"></i> Presentaciones</a>
+            </li>
+            <li>
+                <a th:href="@{/proveedores}"><i class="fa-solid fa-truck-field text-warning"></i> Proveedores</a>
+            </li>
+            <li class="border-top my-2 border-secondary"></li>
+            <li>
+                <a th:href="@{/usuarios}"><i class="fa-solid fa-users text-light"></i> Usuarios</a>
+            </li>
+            <li>
+                <a th:href="@{/roles}"><i class="fa-solid fa-user-shield text-info"></i> Roles y Permisos</a>
+            </li>
+            <li>
+                <a th:href="@{/auditoria}"><i class="fa-solid fa-clipboard-list text-primary"></i> Auditoría</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="content">
+        <div class="navbar-custom d-flex justify-content-between align-items-center">
+            <span class="text-muted fw-semibold">
+                <i class="fa-solid fa-clinic-medical text-primary me-1"></i> Sistema de Control Farmacéutico
+            </span>
+            <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                <i class="fa-solid fa-right-from-bracket me-1"></i> Cerrar Sesión
+            </button>
+        </div>
+
+        <div th:replace="${content}"></div>
+    </div>
+</div>
+
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+            <div class="modal-header bg-danger text-white border-0">
+                <h5 class="modal-title fw-bold"><i class="fa-solid fa-triangle-exclamation me-2"></i>Confirmación</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center p-4">
+                <p class="fs-6 mb-0">¿Estás seguro de que deseas salir del sistema?</p>
+            </div>
+            <div class="modal-footer border-0 justify-content-center pt-0">
+                <button type="button" class="btn btn-light border px-4" data-bs-dismiss="modal">Cancelar</button>
+                <a th:href="@{/logout}" class="btn btn-danger px-4">Cerrar Sesión</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

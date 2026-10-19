@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: layout('Dashboard - Farmacia', ~{::section})}">
+<body>
+
+<section>
+    <div class="card border-0 shadow-sm p-4 mb-4" style="border-radius: 12px;">
+        <h3 class="fw-bold text-dark mb-1">
+            <i class="fa-solid fa-chart-line text-info me-2"></i>Panel Principal
+        </h3>
+        <p class="text-muted mb-0">Resumen e indicadores generales del sistema de farmacia.</p>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm p-3 bg-white" style="border-radius: 12px;">
+                <div class="d-flex align-items-center">
+                    <div class="p-3 bg-warning-subtle text-warning rounded-3 me-3">
+                        <i class="fa-solid fa-capsules fs-3"></i>
+                    </div>
+                    <div>
+                        <span class="text-muted small">Medicamentos</span>
+                        <h4 class="fw-bold mb-0" th:text="${totalMedicamentos != null ? totalMedicamentos : '0'}">0</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm p-3 bg-white" style="border-radius: 12px;">
+                <div class="d-flex align-items-center">
+                    <div class="p-3 bg-success-subtle text-success rounded-3 me-3">
+                        <i class="fa-solid fa-boxes-stacked fs-3"></i>
+                    </div>
+                    <div>
+                        <span class="text-muted small">Lotes Activos</span>
+                        <h4 class="fw-bold mb-0" th:text="${totalLotes != null ? totalLotes : '0'}">0</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm p-3 bg-white" style="border-radius: 12px;">
+                <div class="d-flex align-items-center">
+                    <div class="p-3 bg-danger-subtle text-danger rounded-3 me-3">
+                        <i class="fa-solid fa-triangle-exclamation fs-3"></i>
+                    </div>
+                    <div>
+                        <span class="text-muted small">Próximos a Vencer</span>
+                        <h4 class="fw-bold mb-0" th:text="${proximosVencer != null ? proximosVencer : '0'}">0</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm p-3 bg-white" style="border-radius: 12px;">
+                <div class="d-flex align-items-center">
+                    <div class="p-3 bg-primary-subtle text-primary rounded-3 me-3">
+                        <i class="fa-solid fa-users fs-3"></i>
+                    </div>
+                    <div>
+                        <span class="text-muted small">Usuarios Registrados</span>
+                        <h4 class="fw-bold mb-0" th:text="${totalUsuarios != null ? totalUsuarios : '0'}">0</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: layout('Gestión de Categorías', ~{::section})}">
+<body>
+
+<section>
+    <div class="card border-0 shadow-sm p-4 mb-4" style="border-radius: 12px;">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h3 class="fw-bold text-dark mb-1">
+                    <i class="fa-solid fa-tags text-primary me-2"></i>Gestión de Categorías
+                </h3>
+                <p class="text-muted mb-0">Clasificación y tipos de medicamentos en inventario.</p>
+            </div>
+            <a th:href="@{/categorias/nuevo}" class="btn btn-primary px-3 shadow-sm">
+                <i class="fa-solid fa-plus me-1"></i> + Nueva Categoría
+            </a>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm" style="border-radius: 12px; overflow: hidden;">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-dark">
+                    <tr>
+                        <th class="ps-4">ID</th>
+                        <th>Nombre de Categoría</th>
+                        <th>Descripción</th>
+                        <th>Estado</th>
+                        <th class="text-end pe-4">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="c : ${categorias}">
+                        <td class="ps-4 fw-bold" th:text="${'#' + c.id}"></td>
+                        <td class="fw-semibold text-dark" th:text="${c.nombre}"></td>
+                        <td th:text="${c.descripcion}"></td>
+                        <td>
+                            <span class="badge px-3 py-1 rounded-pill"
+                                  th:classappend="${c.estado} ? 'bg-success-subtle text-success border border-success' : 'bg-danger-subtle text-danger border border-danger'"
+                                  th:text="${c.estado} ? 'Activo' : 'Inactivo'"></span>
+                        </td>
+                        <td class="text-end pe-4 text-nowrap">
+                            <div class="d-inline-flex gap-1">
+                                <a th:href="@{/categorias/editar/{id}(id=${c.id})}" class="btn btn-outline-primary btn-sm">
+                                    <i class="fa-solid fa-pen-to-square me-1"></i> Editar
+                                </a>
+                                <a th:href="@{/categorias/cambiar-estado/{id}(id=${c.id})}"
+                                   th:classappend="${c.estado} ? 'btn-outline-danger' : 'btn-outline-success'"
+                                   class="btn btn-sm">
+                                    <i class="fa-solid" th:classappend="${c.estado} ? 'fa-ban' : 'fa-check'"></i>
+                                    <span th:text="${c.estado} ? ' Desactivar' : ' Activar'"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(categorias)}">
+                        <td colspan="5" class="text-center text-muted py-4">No hay categorías registradas.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
