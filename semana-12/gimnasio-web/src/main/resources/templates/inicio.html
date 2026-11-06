@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: layout('Inicio', ~{::section})}">
+<body>
+<section>
+    <div class="card shadow-sm p-4 mb-4">
+        <h3 class="fw-bold mb-1">Sistema de Gimnasio</h3>
+        <p class="text-muted mb-0">Gestión de socios, planes y membresías. Cada módulo es un microservicio independiente.</p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold mb-0"><i class="bi bi-people-fill text-primary me-2"></i>Socios</h5>
+                        <span class="badge text-bg-light border">socio-service · 8081</span>
+                    </div>
+                    <p class="display-6 fw-bold mb-1" th:text="${totalSocios} ?: '—'"></p>
+                    <p th:if="${totalSocios == null}" class="text-danger small mb-2">Servicio apagado</p>
+                    <p th:unless="${totalSocios == null}" class="text-muted small mb-2">socios registrados</p>
+                    <a th:href="@{/socios}" class="btn btn-outline-primary btn-sm">Ver socios</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold mb-0"><i class="bi bi-card-list text-success me-2"></i>Planes</h5>
+                        <span class="badge text-bg-light border">plan-service · 8082</span>
+                    </div>
+                    <p class="display-6 fw-bold mb-1" th:text="${totalPlanes} ?: '—'"></p>
+                    <p th:if="${totalPlanes == null}" class="text-danger small mb-2">Servicio apagado</p>
+                    <p th:unless="${totalPlanes == null}" class="text-muted small mb-2">planes registrados</p>
+                    <a th:href="@{/planes}" class="btn btn-outline-success btn-sm">Ver planes</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold mb-0"><i class="bi bi-calendar-check text-warning me-2"></i>Membresías</h5>
+                        <span class="badge text-bg-light border">membresia-service · 8083</span>
+                    </div>
+                    <p class="display-6 fw-bold mb-1" th:text="${totalMembresias} ?: '—'"></p>
+                    <p th:if="${totalMembresias == null}" class="text-danger small mb-2">Servicio apagado</p>
+                    <p th:unless="${totalMembresias == null}" class="text-muted small mb-2">membresías registradas</p>
+                    <a th:href="@{/membresias}" class="btn btn-outline-warning btn-sm">Ver membresías</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

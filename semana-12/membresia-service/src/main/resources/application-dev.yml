@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/bd_membresia?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=America/Lima
+    username: root
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+logging:
+  level:
+    com.gimnasio: DEBUG
+
+servicios:
+  socio-url: http://localhost:8081
+  plan-url: http://localhost:8082

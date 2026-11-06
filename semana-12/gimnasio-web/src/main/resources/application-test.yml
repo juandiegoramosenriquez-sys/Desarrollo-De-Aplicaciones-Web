@@ -1,0 +1,8 @@
+servicios:
+  socio-url: http://localhost:8081
+  plan-url: http://localhost:8082
+  membresia-url: http://localhost:8083
+
+logging:
+  level:
+    com.gimnasio: INFO

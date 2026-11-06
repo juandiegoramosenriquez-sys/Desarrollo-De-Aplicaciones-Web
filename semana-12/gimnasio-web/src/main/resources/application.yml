@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: gimnasio-web
+  profiles:
+    active: dev
+  thymeleaf:
+    cache: false
+
+server:
+  port: 8080

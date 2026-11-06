@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: layout('Membresias', ~{::section})}">
+<body>
+<section>
+    <div class="card shadow-sm p-4 mx-auto" style="max-width: 720px;">
+        <h3 class="fw-bold mb-4" th:text="${membresia.id == null} ? 'Nueva membresía' : 'Editar membresía'"></h3>
+
+        <form th:action="@{/membresias/guardar}" th:object="${membresia}" method="post" novalidate>
+            <input type="hidden" th:field="*{id}">
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label" for="idSocio">Socio</label>
+                    <select class="form-select" th:field="*{idSocio}" th:errorclass="is-invalid">
+                        <option value="">Seleccione un socio</option>
+                        <option th:each="s : ${socios}" th:value="${s.id}"
+                                th:text="${s.dni} + ' - ' + ${s.nombreCompleto} + (${s.estado == 'ACTIVO'} ? '' : ' (INACTIVO)')"></option>
+                    </select>
+                    <div class="invalid-feedback" th:errors="*{idSocio}"></div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="idPlan">Plan</label>
+                    <select class="form-select" th:field="*{idPlan}" th:errorclass="is-invalid">
+                        <option value="">Seleccione un plan</option>
+                        <option th:each="p : ${planes}" th:value="${p.id}"
+                                th:text="${p.nombre} + ' - S/ ' + ${#numbers.formatDecimal(p.precio, 1, 'COMMA', 2, 'POINT')} + (${p.estado == 'ACTIVO'} ? '' : ' (INACTIVO)')"></option>
+                    </select>
+                    <div class="invalid-feedback" th:errors="*{idPlan}"></div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="fechaInicio">Fecha de inicio</label>
+                    <input type="date" class="form-control" th:field="*{fechaInicio}" th:errorclass="is-invalid">
+                    <div class="invalid-feedback" th:errors="*{fechaInicio}"></div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="fechaFin">Fecha de fin</label>
+                    <input type="date" class="form-control" th:field="*{fechaFin}" th:errorclass="is-invalid">
+                    <div class="invalid-feedback" th:errors="*{fechaFin}"></div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="estado">Estado</label>
+                    <select class="form-select" th:field="*{estado}" th:errorclass="is-invalid">
+                        <option value="ACTIVA">ACTIVA</option>
+                        <option value="VENCIDA">VENCIDA</option>
+                        <option value="CANCELADA">CANCELADA</option>
+                    </select>
+                    <div class="invalid-feedback" th:errors="*{estado}"></div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 mt-4">
+                <a th:href="@{/membresias}" class="btn btn-outline-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-warning"><i class="bi bi-save me-1"></i>Guardar</button>
+            </div>
+        </form>
+    </div>
+</section>
+</body>
+</html>

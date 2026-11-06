@@ -1,0 +1,16 @@
+spring:
+  thymeleaf:
+    cache: true
+
+server:
+  port: ${PORT:8080}
+
+servicios:
+  socio-url: ${SOCIO_URL:http://localhost:8081}
+  plan-url: ${PLAN_URL:http://localhost:8082}
+  membresia-url: ${MEMBRESIA_URL:http://localhost:8083}
+
+logging:
+  level:
+    root: WARN
+    com.gimnasio: INFO
